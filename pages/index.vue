@@ -1,8 +1,10 @@
 <template>
   <div class="container">
     <div>
-      <h1 class="title">capo</h1>
-      <nuxt-content v-bind="{ document }"/>
+      <h1 class="title">
+        capo
+      </h1>
+      <nuxt-content v-bind="{ document }" />
     </div>
   </div>
 </template>
