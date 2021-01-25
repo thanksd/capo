@@ -1,8 +1,16 @@
 <template>
-  <div class="container">
-    <div>
-      <h1 class="title">capo</h1>
-      <nuxt-content v-bind="{ document }"/>
+  <div class="grid justify-center mt-12 ml-12 mr-12 gap-4">
+    <div class="w-100 bg-red-200 p-4 rounded shadow overflow-hidden">
+      <h1 class="text-xl font-bold text-pink-900">
+        capo
+      </h1>
+      <nuxt-content v-bind="{ document }" />
+    </div>
+
+    <div class="p-4 bg-blue-100">
+      <div v-for="{ slug, path } in slugs" :key="path">
+        <a class="text-blue-600" :href="path">{{ slug }}</a>
+      </div>
     </div>
   </div>
 </template>
@@ -12,41 +20,9 @@ import Vue from 'vue'
 
 export default Vue.extend({
   asyncData: async ({ $content }) => {
-    const document = await $content('hello').fetch()
-    return { document }
+    const document = await $content('index').fetch()
+    const slugs = await $content('posts').only(['slug']).fetch()
+    return { document, slugs }
   }
 })
 </script>
-
-<style>
-.container {
-  margin: 0 auto;
-  min-height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-}
-
-.title {
-  font-family:
-    'Quicksand',
-    'Source Sans Pro',
-    -apple-system,
-    BlinkMacSystemFont,
-    'Segoe UI',
-    Roboto,
-    'Helvetica Neue',
-    Arial,
-    sans-serif;
-  display: block;
-  font-weight: 300;
-  font-size: 100px;
-  color: #35495e;
-  letter-spacing: 1px;
-}
-
-.nuxt-content {
-  max-width: 400px;
-}
-</style>
